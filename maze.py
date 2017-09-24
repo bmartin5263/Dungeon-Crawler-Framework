@@ -29,13 +29,6 @@ class Maze():
 
         self.createMaze(mazeName)
 
-    def mapCoordinates(self, i, j):
-        return j * self.columns + i
-
-    def unMapCoordinates(self, n):
-        j = n // self.columns
-        return (n - (4 * j), j)
-
     def createMaze(self, filename):
         f = open(filename, 'r')
         filelines = f.readlines()
@@ -247,8 +240,6 @@ class Maze():
         print()
 
     def getSpace(self, index):
-        foreground = None
-        background = None
         sprite = self.mazeSprites[index]
         tile = self.mazeTiles[index]
         if sprite == None:

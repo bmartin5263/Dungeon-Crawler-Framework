@@ -23,35 +23,28 @@ class Sprite():
 
     DEFAULTS = {
         '@': {'symbol': '@', 'type': 'player', 'role': 'sprite', 'fore color': 'white', 'behavior': None, 'delay': 0,
-              'health': 1
-            , 'human': True, 'back color': None},
+              'health': 1, 'human': True, 'back color': None},
 
-        'S': {'symbol': 'S', 'type': 'snake', 'role': 'sprite', 'fore color': 'yellow', 'behavior': None, 'delay': .5,
-              'health': 1
-            , 'human': False, 'back color': None},
+        'S': {'symbol': 'S', 'type': 'snake', 'role': 'sprite', 'fore color': 'yellow', 'behavior': None, 'delay': .1,
+              'health': 1, 'human': False, 'back color': None},
 
-        '-': {'symbol': '-', 'type': 'bullet', 'role': 'projectile', 'fore color': 'red', 'behavior': 'travel',
-              'delay': .04, 'health': 1
-            , 'human': False, 'back color': None},
+        '-': {'symbol': '-', 'type': 'bullet', 'role': 'projectile', 'fore color': 'red', 'behavior': 'travel', 'delay': .04,
+              'health': 1, 'human': False, 'back color': None},
 
         'O': {'symbol': 'O', 'type': 'wall', 'role': 'tile', 'fore color': 'purple', 'behavior': None, 'delay': 0,
-              'health': 1
-            , 'human': False, 'back color': None},
+              'health': 1, 'human': False, 'back color': None},
 
         '■': {'symbol': '■', 'type': 'wall', 'role': 'tile', 'fore color': 'gray', 'behavior': None, 'delay': 0,
-              'health': 1
-            , 'human': False, 'back color': None},
+              'health': 1, 'human': False, 'back color': None},
 
         '?': {'symbol': '?', 'type': 'unknown', 'role': 'unknown', 'fore color': 'red', 'behavior': None, 'delay': 0,
-              'health': 0
-            , 'human': False, 'back color': None},
+              'health': 0, 'human': False, 'back color': None},
 
         'W': {'symbol': ' ', 'type': 'water', 'role': 'tile', 'fore color': None, 'behavior': None, 'delay': 0,
-              'health': 0
-            , 'human': False, 'back color': 'blue'},
+              'health': 0, 'human': False, 'back color': 'blue'},
+
         ' ': {'symbol': ' ', 'type': 'ground', 'role': 'tile', 'fore color': 'white', 'behavior': None, 'delay': 0,
-              'health': 0
-            , 'human': False, 'back color': None},
+              'health': 0, 'human': False, 'back color': None},
     }
 
     def __init__(self, idNum=None, symbol='?', position=-1):
