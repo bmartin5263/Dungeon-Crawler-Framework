@@ -1,0 +1,22 @@
+OOOOOOOOOOOOOOOOOOOOOOOOOOOO
+O@                    S    O
+O              S           O
+O      S          S        O
+O             S       S    O
+O   S              S       O
+O         S                O
+O     S       S          S O
+O                    S     O
+O  S    S   S   S          O
+O                 S    S   O
+O     S       S            O
+O                    S   S O
+O   S       S S   S        O
+O                          O
+O   S    S    S    S    S  O
+O           S              O
+O               S          O
+O S   SS             S   S O
+O          S               O
+O   S           S    S     O
+OOOOOOOOOOOOOOOOOOOOOOOOOOOO

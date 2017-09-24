@@ -106,6 +106,8 @@ class Game():
                 self.updateScreen(changes['update'])
             if 'computer sprite' in changes.keys():
                 self.computer.setActiveSpriteIDs(list(self.maze.getComputerActiveSprites()))
+            if 'gameover' in changes.keys():
+                self.isComplete = True
 
         self.lock.release()
 
@@ -123,8 +125,8 @@ class Game():
                                    self.CURSES_COLOR_DICT[spriteInformation[1]][spriteInformation[2]])
         self.screen.move(self.mazeRows, 0)
         self.screen.clrtobot()
-        # self.screen.addstr(self.mazeRows,0,"Comp Sprites: {}".format(str(self.computer.getActiveSpriteIDs())))
-        # self.screen.addstr(self.mazeRows+1,0,"Player Sprite: {}".format(str(self.player.getSpriteID())))
+        self.screen.addstr(self.mazeRows,0,"Comp Sprite IDs: {}".format(str(self.computer.getActiveSpriteIDs())))
+        self.screen.addstr(self.mazeRows+1,0,"Player Sprite ID: {}".format(str(self.player.getSpriteID())))
         self.screen.refresh()
         self.lock.release()
 

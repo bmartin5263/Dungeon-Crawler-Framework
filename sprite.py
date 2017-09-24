@@ -26,7 +26,7 @@ class Sprite():
               'health': 1
             , 'human': True, 'back color': None},
 
-        'S': {'symbol': 'S', 'type': 'snake', 'role': 'sprite', 'fore color': 'yellow', 'behavior': None, 'delay': 1,
+        'S': {'symbol': 'S', 'type': 'snake', 'role': 'sprite', 'fore color': 'yellow', 'behavior': None, 'delay': .5,
               'health': 1
             , 'human': False, 'back color': None},
 
@@ -49,6 +49,9 @@ class Sprite():
         'W': {'symbol': ' ', 'type': 'water', 'role': 'tile', 'fore color': None, 'behavior': None, 'delay': 0,
               'health': 0
             , 'human': False, 'back color': 'blue'},
+        ' ': {'symbol': ' ', 'type': 'ground', 'role': 'tile', 'fore color': 'white', 'behavior': None, 'delay': 0,
+              'health': 0
+            , 'human': False, 'back color': None},
     }
 
     def __init__(self, idNum=None, symbol='?', position=-1):

@@ -5,8 +5,8 @@ class Maze():
     MOVEMENTS = (curses.KEY_UP, curses.KEY_RIGHT, curses.KEY_DOWN, curses.KEY_LEFT)
     VALID_SPRITES = ('@', 'S')
     COMPUTER_SPRITES = ('S', '-')
-    VALID_TILES = ('O', '■', 'W')
-    MOVEABLE_TILES = ('water')
+    VALID_TILES = ('O', '■', 'W', ' ')
+    MOVEABLE_TILES = ('water','ground')
 
     def __init__(self, mazeName):
         self.columns = 0
@@ -47,6 +47,7 @@ class Maze():
             for character in line:
                 if character in Maze.VALID_SPRITES:
                     self.addSprite(character, mazePosition)
+                    self.addTile(' ', mazePosition)
                 elif character in Maze.VALID_TILES:
                     self.addTile(character, mazePosition)
                 else:
@@ -119,14 +120,18 @@ class Maze():
         else:
             initialDirection = direction
             spawnPoint = shootingSpriteLocation + self.getMovementNum(direction, False)
-        if self.mazeTiles[spawnPoint] == None and self.mazeSprites[spawnPoint] == None:
-            self.addSprite('-', spawnPoint)
-            self.mazeSprites[spawnPoint].setDirection(Maze.MOVEMENTS[initialDirection])
-            if initialDirection in (1, 3):
-                self.mazeSprites[spawnPoint].setSymbol('-')
-            else:
-                self.mazeSprites[spawnPoint].setSymbol('|')
-            return {'update': [spawnPoint], 'computer sprite': True}
+        if self.mazeTiles[spawnPoint].getType() is not 'wall':
+            if self.mazeSprites[spawnPoint] is None:
+                self.addSprite('-', spawnPoint)
+                self.mazeSprites[spawnPoint].setDirection(Maze.MOVEMENTS[initialDirection])
+                if initialDirection in (1, 3):
+                    self.mazeSprites[spawnPoint].setSymbol('-')
+                else:
+                    self.mazeSprites[spawnPoint].setSymbol('|')
+                return {'update': [spawnPoint], 'computer sprite': True}
+            elif self.mazeSprites[spawnPoint].getType() == 'snake':
+                killLocation = self.killSprite(self.mazeSprites[spawnPoint].getID())
+                return {'update': [spawnPoint, killLocation], 'computer sprite': True}
         return None
 
     def killSprite(self, spriteNum):
@@ -142,52 +147,52 @@ class Maze():
 
     def request(self, spriteNum, command):
         spriteLocation = self.spriteLocations[spriteNum]
-        try:
 
-            if command in self.MOVEMENTS:
-                sprite = self.mazeSprites[spriteLocation]
-                peekedSprite = self.peek(command, spriteLocation)
+        if command in self.MOVEMENTS:
+            sprite = self.mazeSprites[spriteLocation]
+            peekedSprite = self.peek(command, spriteLocation)
 
-                if peekedSprite == None or peekedSprite.getType() in Maze.MOVEABLE_TILES:
+            if peekedSprite.getType() in Maze.MOVEABLE_TILES:
 
-                    if sprite.getType() == 'bullet':
-                        self.mazeSprites[spriteLocation].setColor('laser')
+                if sprite.getType() == 'bullet':
+                    self.mazeSprites[spriteLocation].setColor('laser')
 
-                    changes = self.moveSprite(command, spriteNum)
-                    return changes
+                changes = self.moveSprite(command, spriteNum)
+                return changes
 
-                elif sprite.getType() == 'bullet' and peekedSprite != None:
-                    killPosition = None
-                    if peekedSprite.getType() == 'snake':
-                        killPosition = self.killSprite(peekedSprite.getID())
-                    bulletPosition = self.killSprite(sprite.getID())
-                    return {'update': [bulletPosition, killPosition], 'computer sprite': True}
+            elif sprite.getType() == 'bullet' and peekedSprite != None:
+                killPosition = None
+                if peekedSprite.getType() == 'snake':
+                    killPosition = self.killSprite(peekedSprite.getID())
+                bulletPosition = self.killSprite(sprite.getID())
+                return {'update': [bulletPosition, killPosition], 'computer sprite': True}
 
-            elif command == ord(" "):
-                sprite = self.mazeSprites[spriteLocation]
-                return self.addProjectile(sprite, spriteLocation)
+            elif peekedSprite.getType() == 'player' and sprite.getType() == 'snake':
+                return {'gameover':True}
 
-            elif command == ord("w"):
-                sprite = self.mazeSprites[spriteLocation]
-                return self.addProjectile(sprite, spriteLocation, 0)
+            elif peekedSprite.getType() == 'snake' and sprite.getType() == 'player':
+                return {'gameover':True}
 
-            elif command == ord("a"):
-                sprite = self.mazeSprites[spriteLocation]
-                return self.addProjectile(sprite, spriteLocation, 3)
+        elif command == ord(" "):
+            sprite = self.mazeSprites[spriteLocation]
+            return self.addProjectile(sprite, spriteLocation)
 
-            elif command == ord("s"):
-                sprite = self.mazeSprites[spriteLocation]
-                return self.addProjectile(sprite, spriteLocation, 2)
+        elif command == ord("w"):
+            sprite = self.mazeSprites[spriteLocation]
+            return self.addProjectile(sprite, spriteLocation, 0)
 
-            elif command == ord("d"):
-                sprite = self.mazeSprites[spriteLocation]
-                return self.addProjectile(sprite, spriteLocation, 1)
+        elif command == ord("a"):
+            sprite = self.mazeSprites[spriteLocation]
+            return self.addProjectile(sprite, spriteLocation, 3)
 
-                # return {}
+        elif command == ord("s"):
+            sprite = self.mazeSprites[spriteLocation]
+            return self.addProjectile(sprite, spriteLocation, 2)
 
-        except:
-            self.mazeTiles[0] = Sprite()
-            return {'update': [0]}
+        elif command == ord("d"):
+            sprite = self.mazeSprites[spriteLocation]
+            return self.addProjectile(sprite, spriteLocation, 1)
+
         return {}
 
     def peek(self, direction, start):
