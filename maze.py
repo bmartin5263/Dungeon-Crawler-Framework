@@ -8,7 +8,7 @@ class Maze():
     VALID_TILES = ('O', '■', 'W')
     MOVEABLE_TILES = ('water')
 
-    def __init__(self):
+    def __init__(self, mazeName):
         self.columns = 0
         self.rows = 0
         self.totalSpaces = 0
@@ -26,6 +26,8 @@ class Maze():
         self.computerSignalSprites = []
         self.tileSprites = []
         self.projectileSprites = []
+
+        self.createMaze(mazeName)
 
     def mapCoordinates(self, i, j):
         return j * self.columns + i
