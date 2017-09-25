@@ -25,7 +25,7 @@ class Sprite():
         '@': {'symbol': '@', 'type': 'player', 'role': 'sprite', 'fore color': 'white', 'behavior': None, 'delay': 0,
               'health': 1, 'human': True, 'back color': None},
 
-        'S': {'symbol': 'S', 'type': 'snake', 'role': 'sprite', 'fore color': 'yellow', 'behavior': None, 'delay': .1,
+        'S': {'symbol': 'S', 'type': 'snake', 'role': 'sprite', 'fore color': 'yellow', 'behavior': None, 'delay': .01,
               'health': 1, 'human': False, 'back color': None},
 
         '-': {'symbol': '-', 'type': 'bullet', 'role': 'projectile', 'fore color': 'red', 'behavior': 'travel', 'delay': .04,
